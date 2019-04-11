@@ -14,6 +14,7 @@ def __main__(argv)
   hostname = Socket.gethostname
   ipaddress = IPSocket.getaddress(hostname)
   node = Pathfinder::Node.new(hostname: hostname, ipaddress: ipaddress)
+  lxd = MrubyLxd::Lxd.new
 
   root_command = PathfinderAgentMruby::Command.new(
     use: 'pathfinder-agent',
@@ -39,6 +40,9 @@ Ensure appropriate containers are running on the node in which this agent reside
           sleep retry_wait
         end
       end
+
+      agent = PathfinderAgentMruby::Agent.new(pathfinder: pathfinder, lxd: lxd)
+      agent.run
     }
   )
   root_command.execute(argv)

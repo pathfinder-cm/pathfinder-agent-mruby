@@ -11,5 +11,6 @@ MRuby::Gem::Specification.new('pathfinder-agent-mruby') do |spec|
   spec.add_dependency('mruby-random')
   spec.add_dependency('mruby-require')
   spec.add_dependency('mruby-socket')
+  spec.add_dependency('mruby-lxd', github: 'pathfinder-cm/mruby-lxd')
   spec.add_dependency('mruby-pathfinder-client', github: 'pathfinder-cm/mruby-pathfinder-client')
 end
