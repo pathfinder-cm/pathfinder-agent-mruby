@@ -31,6 +31,10 @@ If you have any questions or feedback regarding pathfinder-agent-mruby:
 
 Your feedback is always welcome.
 
+## Limitations
+
+- Graceful shutdown is not implemented yet.
+
 ## Further Reading
 
 - [mruby documentation][mruby-doc]
