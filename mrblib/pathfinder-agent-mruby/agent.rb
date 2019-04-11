@@ -28,6 +28,8 @@ module PathfinderAgentMruby
         case scheduled_container.status
         when "SCHEDULED"
           provision_container(scheduled_container, local_containers)
+        when "SCHEDULE_DELETION"
+          delete_container(scheduled_container, local_containers)
         end
       end
 
@@ -74,6 +76,30 @@ module PathfinderAgentMruby
         @pathfinder.mark_container_as_provisioned(container: scheduled_container)
 
         puts "Container already exist"
+      end
+
+      return true
+    end
+
+    def delete_container(scheduled_container, local_containers)
+      local_container = local_containers.select{ |c|
+        c.hostname == scheduled_container.hostname 
+      }.first
+
+      if local_container
+        ok = @lxd.delete_container(hostname: scheduled_container.hostname)
+        if !ok
+          puts "Error during container deletion"
+          return false
+        end
+
+        @pathfinder.mark_container_as_deleted(container: scheduled_container)
+
+        puts "Container deleted"
+      else
+        @pathfinder.mark_container_as_deleted(container: scheduled_container)
+
+        puts "Container already deleted"
       end
 
       return true
