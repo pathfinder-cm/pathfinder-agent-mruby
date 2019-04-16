@@ -13,4 +13,5 @@ MRuby::Gem::Specification.new('pathfinder-agent-mruby') do |spec|
   spec.add_dependency('mruby-socket')
   spec.add_dependency('mruby-lxd', github: 'giosakti/mruby-lxd')
   spec.add_dependency('mruby-pathfinder-client', github: 'pathfinder-cm/mruby-pathfinder-client')
+  spec.add_dependency('mruby-cmdr', github: 'giosakti/mruby-cmdr')
 end

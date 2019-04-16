@@ -16,7 +16,7 @@ def __main__(argv)
   node = Pathfinder::Node.new(hostname: hostname, ipaddress: ipaddress)
   lxd = MrubyLxd::Lxd.new
 
-  root_command = PathfinderAgentMruby::Command.new(
+  root_command = Cmdr::Command.new(
     use: 'pathfinder-agent',
     short: 'Agent for Pathfinder container manager',
     long: "Pathfinder Agent

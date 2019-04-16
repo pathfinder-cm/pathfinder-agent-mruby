@@ -7,6 +7,7 @@ def gem_config(conf)
   conf.gem github: 'kjunichi/mruby-uuid'
   conf.gem github: 'giosakti/mruby-lxd'
   conf.gem github: 'pathfinder-cm/mruby-pathfinder-client'
+  conf.gem github: 'giosakti/mruby-cmdr'
   conf.gem File.expand_path(File.dirname(__FILE__))
 end
 
