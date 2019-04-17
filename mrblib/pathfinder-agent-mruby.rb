@@ -21,10 +21,23 @@ def __main__(argv)
 
   root_command = Cmdr::Command.new(
     use: 'pathfinder-agent',
-    short: 'Agent for Pathfinder container manager',
+    short: 'Agents for Pathfinder container manager',
     long: "Pathfinder Agent
-Ensure appropriate containers are running on the node in which this agent reside in.
+Contains node agent and metrics agent.
 ",
+  )
+
+  start_command = Cmdr::Command.new(
+    use: 'start',
+    short: 'Specify agent to start',
+    long: 'Specify agent to start'
+  )
+  root_command.add_command(start_command)
+
+  start_node_command = Cmdr::Command.new(
+    use: 'node',
+    short: 'Start node agent',
+    long: 'Start node agent, manage containers lifecycle of this particular node',
     run: Proc.new { |command, argv|
       puts "Agent starting..."
       puts "\n"
@@ -55,5 +68,14 @@ Ensure appropriate containers are running on the node in which this agent reside
       agent.run
     }
   )
+  start_command.add_command(start_node_command)
+
+  start_metrics_command = Cmdr::Command.new(
+    use: 'metrics',
+    short: 'Start metrics agent',
+    long: 'Start metrics agent, periodically send this node metrics to pathfinder',
+  )
+  start_command.add_command(start_metrics_command)
+
   root_command.execute(argv)
 end
