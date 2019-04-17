@@ -14,19 +14,21 @@ module PathfinderAgentMruby
 
     def process
       sysinfo = Sysinfo::Factory.create
+
+      # Note: We got memory in KB
       mem_stats = sysinfo.mem_stats
 
       puts 'Sending metrics:'
-      puts "Memory free: #{mem_stats[:mem_available]}"
-      puts "Memory used: #{mem_stats[:mem_used]}"
-      puts "Memory total: #{mem_stats[:mem_total]}"
+      puts "Memory free: #{mem_stats[:mem_available] / 1000} MB"
+      puts "Memory used: #{mem_stats[:mem_used] / 1000} MB"
+      puts "Memory total: #{mem_stats[:mem_total] / 1000} MB"
       puts "\n"
 
       @pathfinder.store_metrics(metrics: {
         memory: {
-          free: mem_stats[:mem_available],
-          used: mem_stats[:mem_used],
-          total: mem_stats[:mem_total],
+          free: mem_stats[:mem_available] / 1000,
+          used: mem_stats[:mem_used] / 1000,
+          total: mem_stats[:mem_total] / 1000,
         }
       })
 
