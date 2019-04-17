@@ -39,7 +39,7 @@ Contains node agent and metrics agent.
     short: 'Start node agent',
     long: 'Start node agent, manage containers lifecycle of this particular node',
     run: Proc.new { |command, argv|
-      puts "Agent starting..."
+      puts "Node agent starting..."
       puts "\n"
 
       puts "Active configurations:"
@@ -64,7 +64,7 @@ Contains node agent and metrics agent.
         end
       end
 
-      agent = PathfinderAgentMruby::Agent.new(pathfinder: pathfinder, lxd: lxd)
+      agent = PathfinderAgentMruby::NodeAgent.new(pathfinder: pathfinder, lxd: lxd)
       agent.run
     }
   )
@@ -74,6 +74,35 @@ Contains node agent and metrics agent.
     use: 'metrics',
     short: 'Start metrics agent',
     long: 'Start metrics agent, periodically send this node metrics to pathfinder',
+    run: Proc.new { |command, argv|
+      puts "Metrics agent starting..."
+      puts "\n"
+
+      puts "Active configurations:"
+      CONFIG.each do |k,v|
+        puts "#{k}: #{v}"
+      end
+      puts "\n"
+
+      while true do
+        ok, _ = pathfinder.register(
+          cluster_password: CONFIG[:PF_CLUSTER_PASSWORD],
+          node: node
+        )
+
+        if ok
+          puts "Agent successfully registered!"
+          break
+        else
+          retry_wait = 60 + (1..10).to_a
+          puts "Registration failure, retrying in #{retry_wait} seconds"
+          sleep retry_wait
+        end
+      end
+
+      metrics_agent = PathfinderAgentMruby::MetricsAgent.new(pathfinder: pathfinder)
+      metrics_agent.run
+    }
   )
   start_command.add_command(start_metrics_command)
 

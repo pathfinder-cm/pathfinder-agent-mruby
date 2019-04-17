@@ -1,3 +1,9 @@
+class MRuby::Gem::LinkerConfig
+  def defines
+    @defines ||= []
+  end
+end
+
 def gem_config(conf)
   conf.gem core: 'mruby-eval'
   conf.gem core: 'mruby-random'
@@ -8,6 +14,7 @@ def gem_config(conf)
   conf.gem github: 'giosakti/mruby-lxd'
   conf.gem github: 'pathfinder-cm/mruby-pathfinder-client'
   conf.gem github: 'giosakti/mruby-cmdr'
+  conf.gem github: 'giosakti/mruby-sysinfo'
   conf.gem File.expand_path(File.dirname(__FILE__))
 end
 

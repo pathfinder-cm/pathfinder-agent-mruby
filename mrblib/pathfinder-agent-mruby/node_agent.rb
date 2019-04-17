@@ -1,13 +1,11 @@
 module PathfinderAgentMruby
-  class Agent
+  class NodeAgent
     def initialize(pathfinder:, lxd:)
       @pathfinder = pathfinder
       @lxd = lxd
     end
 
     def run
-      puts "Starting provision agent..."
-
       while true
         delay = 5 + (1..5).to_a.sample
         sleep(delay)
