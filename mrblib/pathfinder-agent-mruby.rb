@@ -94,10 +94,14 @@ def register_agent(pathfinder:, node:)
 
       if ok
         puts "Agent successfully registered!"
-        Dir.mkdir("#{ENV['HOME']}/.pathfinder")
-        File.open("#{ENV['HOME']}/.pathfinder/node-token", 'w') do |f|
+
+        dir_path = "#{ENV['HOME']}/.pathfinder"
+        file_path = "#{ENV['HOME']}/.pathfinder/node-token"
+        Dir.mkdir(dir_path) unless Dir.exist?(dir_path)
+        File.open(file_path, 'w') do |f|
           f.write authentication_token
         end
+        File.chmod(0600, file_path)
         break
       else
         retry_wait = 60 + (1..10).to_a
@@ -105,6 +109,8 @@ def register_agent(pathfinder:, node:)
         sleep retry_wait
       end
     end
+  else
+    puts "Agent already registered, reading existing configurations."
   end
 
   Pathfinder::PathfinderNode.new(
