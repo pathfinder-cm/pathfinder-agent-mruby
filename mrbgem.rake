@@ -11,7 +11,7 @@ MRuby::Gem::Specification.new('pathfinder-agent-mruby') do |spec|
   spec.add_dependency('mruby-random')
   spec.add_dependency('mruby-require')
   spec.add_dependency('mruby-socket')
-  spec.add_dependency('mruby-lxd', github: 'giosakti/mruby-lxd')
-  spec.add_dependency('mruby-pathfinder-client', github: 'pathfinder-cm/mruby-pathfinder-client')
-  spec.add_dependency('mruby-cmdr', github: 'giosakti/mruby-cmdr')
+  spec.add_dependency('mruby-lxd', '>= 0.1.0', github: 'giosakti/mruby-lxd')
+  spec.add_dependency('mruby-pathfinder-client', '>= 0.1.0', github: 'pathfinder-cm/mruby-pathfinder-client')
+  spec.add_dependency('mruby-cmdr', '>= 0.1.0', github: 'giosakti/mruby-cmdr')
 end
