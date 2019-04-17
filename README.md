@@ -13,7 +13,14 @@ Install these dependencies:
 
 Then you can run `rake compile` to start the compilation process. `pathfinder-agent-mruby` binary will be available on `mruby/build/host/bin` directory.
 
-Ensure pathfinder server is up and running before starting the agent.
+Please ensure pathfinder server is up and running and also exports appropriate configurations before starting the agent (see configurations section).
+
+Example:
+```
+export PF_SERVER_ADDR=127.0.0.1
+export PF_CLUSTER=default
+export PF_CLUSTER_PASSWORD=pathfinder
+```
 
 ## Development Setup
 
@@ -22,6 +29,19 @@ Install dependencies mentioned in the getting started section.
 ### Running tests
 
 Run `rake test`
+
+## Configurations
+
+These are possible configurations that you can set via environment variables.
+
+```
+LXD_SOCKET_PATH
+PF_SERVER_SCHEME
+PF_SERVER_ADDR
+PF_SERVER_PORT
+PF_CLUSTER
+PF_CLUSTER_PASSWORD
+```
 
 ## Getting Help
 
